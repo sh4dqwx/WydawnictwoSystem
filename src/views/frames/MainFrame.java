@@ -15,10 +15,7 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         contentMenuBar = new ContentMenuBar();
-
         mainPanel = new MainPanel();
-        mainPanel.setBackground(Color.GREEN);
-
         authorsPanel = new AuthorsPanel();
 
         setJMenuBar(contentMenuBar);
