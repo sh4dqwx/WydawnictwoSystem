@@ -16,8 +16,7 @@ public class MainPanel extends JPanel {
     private BufferedImage background;
     private JLabel bigTitle;
 
-    public MainPanel(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
+    public MainPanel() {
         setLayout(new BorderLayout());
 
         try {

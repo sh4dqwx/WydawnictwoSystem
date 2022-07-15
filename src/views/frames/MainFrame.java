@@ -1,6 +1,8 @@
 package views.frames;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import java.awt.event.ActionListener;
 import views.panels.AuthorsPanel;
 import views.panels.MainPanel;
 
@@ -10,19 +12,36 @@ public class MainFrame extends JFrame {
     private AuthorsPanel authorsPanel;
     private JPanel currentPanel;
 
-    public MainFrame() {
+    public MainFrame(MainPanel mainPanel, AuthorsPanel authorsPanel) {
         setTitle("Wydawnictwo ePress");
         setSize(1200, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
 
         contentMenuBar = new ContentMenuBar();
-        mainPanel = new MainPanel(this);
-        authorsPanel = new AuthorsPanel();
-        currentPanel = mainPanel;
+        this.mainPanel = mainPanel;
+        this.authorsPanel = authorsPanel;
+        currentPanel = this.mainPanel;
 
         setJMenuBar(contentMenuBar);
         add(currentPanel);
-        setVisible(true);
+    }
+
+    public void showPanel(JPanel selectedPanel) {
+        if(currentPanel == selectedPanel) return;
+        remove(currentPanel);
+        currentPanel = selectedPanel;
+        add(currentPanel);
+    }
+    public void removeCurrentPanel() {
+        remove(mainPanel);
+    }
+
+    public void addMainPanelListener(ActionListener mainPanelListener) {
+        contentMenuBar.addMainPanelListener(mainPanelListener);
+    }
+
+    public void addAuthorsPanelListener(ActionListener authorsPanelListener) {
+        contentMenuBar.addAuthorsPanelListener(authorsPanelListener);
     }
 }
