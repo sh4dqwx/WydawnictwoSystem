@@ -18,6 +18,8 @@ public class MainPanel extends JPanel {
 
     public MainPanel() {
         super();
+        setLayout(new BorderLayout());
+
         try {
             background = ImageIO.read(new File("spider-writer.jpg"));
         }
@@ -25,14 +27,13 @@ public class MainPanel extends JPanel {
             e.printStackTrace();
         }
 
-        setLayout(new BorderLayout());
-
         JLabel title = new JLabel("Wydawnictwo ePress");
         title.setFont(new Font("Comic Sans MS", Font.BOLD, 80));
         title.setForeground(Color.WHITE);
         title.setHorizontalAlignment(JLabel.CENTER);
 
         JPanel buttons = new JPanel(new FlowLayout());
+        buttons.setOpaque(false);
         saveButton = new JButton("Zapisz do pliku");
         buttons.add(saveButton);
         loadButton = new JButton("Wczytaj z pliku");

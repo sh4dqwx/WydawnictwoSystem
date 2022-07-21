@@ -1,15 +1,16 @@
 package views.panels;
 
+import java.awt.event.ActionListener;
 import javax.swing.JTabbedPane;
 
 public class PagesPanel extends JTabbedPane {
     private MainPanel mainPanel;
     private AuthorsPanel authorsPanel;
 
-    public PagesPanel() {
+    public PagesPanel(MainPanel mainPanel, AuthorsPanel authorsPanel) {
         super();
-        mainPanel = new MainPanel();
-        authorsPanel = new AuthorsPanel();
+        this.mainPanel = mainPanel;
+        this.authorsPanel = authorsPanel;
         addTab("Strona główna", mainPanel);
         addTab("Autorzy", authorsPanel);
     }
