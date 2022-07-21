@@ -1,6 +1,7 @@
 package views.panels;
 import java.awt.image.BufferedImage;
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JLabel;
@@ -9,10 +10,11 @@ import java.io.File;
 import java.io.IOException;
 import java.awt.Graphics;
 import javax.swing.JPanel;
+import javax.swing.JButton;
 
 public class MainPanel extends JPanel {
     private BufferedImage background;
-    private JLabel bigTitle;
+    private JButton saveButton, loadButton;
 
     public MainPanel() {
         super();
@@ -24,11 +26,20 @@ public class MainPanel extends JPanel {
         }
 
         setLayout(new BorderLayout());
-        bigTitle = new JLabel("Wydawnictwo ePress");
-        bigTitle.setFont(new Font("Comic Sans MS", Font.BOLD, 80));
-        bigTitle.setForeground(Color.WHITE);
-        bigTitle.setHorizontalAlignment(JLabel.CENTER);
-        add(bigTitle, BorderLayout.NORTH);
+
+        JLabel title = new JLabel("Wydawnictwo ePress");
+        title.setFont(new Font("Comic Sans MS", Font.BOLD, 80));
+        title.setForeground(Color.WHITE);
+        title.setHorizontalAlignment(JLabel.CENTER);
+
+        JPanel buttons = new JPanel(new FlowLayout());
+        saveButton = new JButton("Zapisz do pliku");
+        buttons.add(saveButton);
+        loadButton = new JButton("Wczytaj z pliku");
+        buttons.add(loadButton);
+
+        add(title, BorderLayout.NORTH);
+        add(buttons, BorderLayout.SOUTH);
     }
 
     @Override
