@@ -7,6 +7,7 @@ public class PagesPanel extends JTabbedPane {
     private AuthorsPanel authorsPanel;
 
     public PagesPanel() {
+        super();
         mainPanel = new MainPanel();
         authorsPanel = new AuthorsPanel();
         addTab("Strona główna", mainPanel);

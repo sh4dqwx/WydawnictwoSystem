@@ -15,8 +15,7 @@ public class MainPanel extends JPanel {
     private JLabel bigTitle;
 
     public MainPanel() {
-        setLayout(new BorderLayout());
-
+        super();
         try {
             background = ImageIO.read(new File("spider-writer.jpg"));
         }
@@ -24,6 +23,7 @@ public class MainPanel extends JPanel {
             e.printStackTrace();
         }
 
+        setLayout(new BorderLayout());
         bigTitle = new JLabel("Wydawnictwo ePress");
         bigTitle.setFont(new Font("Comic Sans MS", Font.BOLD, 80));
         bigTitle.setForeground(Color.WHITE);

@@ -7,6 +7,7 @@ public class MainFrame extends JFrame {
     private PagesPanel pagesPanel;
 
     public MainFrame() {
+        super();
         setTitle("Wydawnictwo ePress");
         setSize(1200, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
