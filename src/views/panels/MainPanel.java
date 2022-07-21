@@ -9,10 +9,8 @@ import java.io.File;
 import java.io.IOException;
 import java.awt.Graphics;
 import javax.swing.JPanel;
-import views.frames.MainFrame;
 
 public class MainPanel extends JPanel {
-    private MainFrame mainFrame;
     private BufferedImage background;
     private JLabel bigTitle;
 
