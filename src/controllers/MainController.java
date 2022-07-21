@@ -1,7 +1,6 @@
 package controllers;
 
 import views.frames.*;
-import views.panels.*;
 import models.*;
 
 public class MainController {

@@ -1,9 +1,6 @@
 package views.frames;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import views.panels.AuthorsPanel;
-import views.panels.MainPanel;
 import views.panels.PagesPanel;
 
 public class MainFrame extends JFrame {
