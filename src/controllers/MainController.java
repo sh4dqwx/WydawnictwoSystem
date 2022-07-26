@@ -2,12 +2,12 @@ package controllers;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import views.frames.*;
 import views.panels.*;
 import models.*;
+import exceptions.EmptyDataException;
 
 public class MainController {
     private MainFrame mainFrame;
@@ -35,7 +35,14 @@ public class MainController {
     }
     public class AddAuthorListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            publisher.addAuthor(addAuFrame.getAuthor());
+            try {
+                publisher.addAuthor(addAuFrame.getAuthor());
+            }
+            catch(EmptyDataException ex) {
+                JOptionPane.showMessageDialog(addAuFrame, ex.getMessage(), "UWAGA", JOptionPane.WARNING_MESSAGE);
+                addAuFrame.refresh();
+                return;
+            }
             authorsPanel.refresh(publisher.getAuthorsList()); 
             addAuFrame.dispose();
         }

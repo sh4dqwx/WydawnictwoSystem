@@ -13,6 +13,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import models.Author;
+import exceptions.EmptyDataException;
 
 public class AddAuFrame extends JDialog {
     private JTextField name, surname;
@@ -61,7 +62,14 @@ public class AddAuFrame extends JDialog {
         submit.addActionListener(addAuthorListener);
     }
 
-    public Author getAuthor() {
+    public Author getAuthor() throws EmptyDataException {
+        if(name.getText().length() == 0 || surname.getText().length() == 0) throw new EmptyDataException("Podaj dane autora");
         return new Author(name.getText(), surname.getText(), (int)age.getValue());
+    }
+
+    public void refresh() {
+        name.setText("");
+        surname.setText("");
+        age.setValue(18);
     }
 }
