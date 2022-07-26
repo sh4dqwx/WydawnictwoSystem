@@ -13,7 +13,8 @@ public class MainController {
     private MainFrame mainFrame;
     private MainPanel mainPanel;
     private AuthorsPanel authorsPanel;
-    private AddAuthorFrame addAuFrame;
+    private AddAuFrame addAuFrame;
+    private DelAuFrame delAuFrame;
     private Publisher publisher;
 
     public MainController(MainFrame mainFrame, MainPanel mainPanel, AuthorsPanel authorsPanel, Publisher publisher) {
@@ -22,20 +23,27 @@ public class MainController {
         this.authorsPanel = authorsPanel;
         this.publisher = publisher;
 
-        authorsPanel.addListeners(new AddAuthorListener(), new DeleteAuthorListener());
+        authorsPanel.addListeners(new ShowAddAuFListener(), new ShowDelAuFListener());
     }
 
-    public class AddAuthorListener implements ActionListener {
+    public class ShowAddAuFListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            addAuFrame = new AddAuthorFrame();
+            addAuFrame = new AddAuFrame(mainFrame, "Dodaj autora");
+            addAuFrame.addListener(new AddAuthorListener());
             addAuFrame.setVisible(true);
-            //publisher.addAuthor(new Author());
-            //authorsPanel.refresh(publisher.getAuthorsList());
         }
     }
-
-    public class DeleteAuthorListener implements ActionListener {
+    public class AddAuthorListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            publisher.addAuthor(addAuFrame.getAuthor());
+            authorsPanel.refresh(publisher.getAuthorsList()); 
+            addAuFrame.dispose();
+        }
+    }
+    public class ShowDelAuFListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            //delAuFrame = new DelAuFrame(mainFrame, "uwaga");
+            //delAuFrame.setVisible(true);
             publisher.deleteAuthor(new Author());
             authorsPanel.refresh(publisher.getAuthorsList());            
         }

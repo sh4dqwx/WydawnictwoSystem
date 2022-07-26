@@ -1,18 +1,28 @@
 package views.frames;
 
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JButton;
+import java.awt.Frame;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import models.Author;
 
-public class AddAuthorFrame extends JFrame {
-    private JTextField name, surname, age;
+public class AddAuFrame extends JDialog {
+    private JTextField name, surname;
+    private JSpinner age;
+    private JButton submit;
 
-    public AddAuthorFrame() {
+    public AddAuFrame(Frame owner, String title) {
+        super(owner, title);
+        setModal(true);
+
         JPanel titleP = new JPanel();
         titleP.add(new JLabel("Podaj dane autora:"));
 
@@ -30,7 +40,7 @@ public class AddAuthorFrame extends JFrame {
 
         JPanel ageP = new JPanel(new FlowLayout());
         ageP.add(new JLabel("Wiek: "));
-        age = new JTextField(10);
+        age = new JSpinner(new SpinnerNumberModel(18, 18, 99, 1));
         ageP.add(age);
 
         dataP.add(nameP);
@@ -38,11 +48,20 @@ public class AddAuthorFrame extends JFrame {
         dataP.add(ageP);
 
         JPanel buttonsP = new JPanel();
-        buttonsP.add(new JButton("Dodaj autora"));
+        submit = new JButton("Dodaj autora");
+        buttonsP.add(submit);
 
         add(titleP, BorderLayout.NORTH);
         add(dataP, BorderLayout.CENTER);
         add(buttonsP, BorderLayout.SOUTH);
         pack();
+    }
+
+    public void addListener(ActionListener addAuthorListener) {
+        submit.addActionListener(addAuthorListener);
+    }
+
+    public Author getAuthor() {
+        return new Author(name.getText(), surname.getText(), (int)age.getValue());
     }
 }
