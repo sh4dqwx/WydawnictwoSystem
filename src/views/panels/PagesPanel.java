@@ -1,6 +1,5 @@
 package views.panels;
 
-import java.awt.event.ActionListener;
 import javax.swing.JTabbedPane;
 
 public class PagesPanel extends JTabbedPane {

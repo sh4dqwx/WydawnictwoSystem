@@ -2,6 +2,7 @@ package controllers;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JOptionPane;
 import views.frames.*;
 import views.panels.*;
 import models.*;
@@ -18,8 +19,7 @@ public class MainController {
         this.authorsPanel = authorsPanel;
         this.publisher = publisher;
 
-        authorsPanel.addAddAuthorListener(new AddAuthorListener());
-        authorsPanel.addDeleteAuthorListener(new DeleteAuthorListener());
+        authorsPanel.addListeners(new AddAuthorListener(), new DeleteAuthorListener());
     }
 
     public class AddAuthorListener implements ActionListener {

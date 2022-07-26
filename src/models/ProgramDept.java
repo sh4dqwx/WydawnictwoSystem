@@ -2,6 +2,8 @@ package models;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 public class ProgramDept {
     private ArrayList<Author> authorsList;
 
@@ -10,12 +12,14 @@ public class ProgramDept {
     }
 
     public void addAuthor(Author author) {
-
+        authorsList.add(author);
     }
     public void deleteAuthor(Author author) {
 
     }
     public Author[] getAuthorsList() {
-        return (Author[])authorsList.toArray();
+        Author[] toSend = new Author[authorsList.size()];
+        System.arraycopy(authorsList.toArray(), 0, toSend, 0, toSend.length);
+        return toSend;
     }
 }

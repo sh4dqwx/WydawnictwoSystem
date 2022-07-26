@@ -45,10 +45,8 @@ public class AuthorsPanel extends JPanel {
         list.setListData(authorsList);
     }
 
-    public void addAddAuthorListener(ActionListener addAuthorListener) {
+    public void addListeners(ActionListener addAuthorListener, ActionListener deleteAuthorListener) {
         addAuthorButton.addActionListener(addAuthorListener);
-    }
-    public void addDeleteAuthorListener(ActionListener deleteAuthorListener) {
         deleteAuthorButton.addActionListener(deleteAuthorListener);
     }
 
