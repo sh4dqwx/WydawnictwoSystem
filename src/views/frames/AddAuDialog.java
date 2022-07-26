@@ -11,16 +11,19 @@ import java.awt.Frame;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import java.awt.event.ActionEvent;
 import models.Author;
 import exceptions.EmptyDataException;
+import exceptions.WrongDataException;
 
-public class AddAuFrame extends JDialog {
+public class AddAuDialog extends JDialog {
     private JTextField name, surname;
     private JSpinner age;
     private JButton submit;
 
-    public AddAuFrame(Frame owner, String title) {
+    public AddAuDialog(Frame owner, String title) {
         super(owner, title);
         setModal(true);
 
@@ -62,8 +65,11 @@ public class AddAuFrame extends JDialog {
         submit.addActionListener(addAuthorListener);
     }
 
-    public Author getAuthor() throws EmptyDataException {
+    public Author getAuthor() throws EmptyDataException, WrongDataException {
         if(name.getText().length() == 0 || surname.getText().length() == 0) throw new EmptyDataException("Podaj dane autora");
+        if(Pattern.compile("^[a-zA-Z]+$").matcher(name.getText()).find() == false) throw new WrongDataException("Niepoprawne dane");
+        if(Pattern.compile("^[a-zA-Z]+$").matcher(surname.getText()).find() == false) throw new WrongDataException("Niepoprawne dane");
+
         return new Author(name.getText(), surname.getText(), (int)age.getValue());
     }
 

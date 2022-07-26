@@ -8,13 +8,14 @@ import views.frames.*;
 import views.panels.*;
 import models.*;
 import exceptions.EmptyDataException;
+import exceptions.WrongDataException;
 
 public class MainController {
     private MainFrame mainFrame;
     private MainPanel mainPanel;
     private AuthorsPanel authorsPanel;
-    private AddAuFrame addAuFrame;
-    private DelAuFrame delAuFrame;
+    private AddAuDialog addAuDialog;
+    private DelAuDialog delAuFrame;
     private Publisher publisher;
 
     public MainController(MainFrame mainFrame, MainPanel mainPanel, AuthorsPanel authorsPanel, Publisher publisher) {
@@ -28,23 +29,24 @@ public class MainController {
 
     public class ShowAddAuFListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            addAuFrame = new AddAuFrame(mainFrame, "Dodaj autora");
-            addAuFrame.addListener(new AddAuthorListener());
-            addAuFrame.setVisible(true);
+            addAuDialog = new AddAuDialog(mainFrame, "Dodaj autora");
+            addAuDialog.addListener(new AddAuthorListener());
+            addAuDialog.setVisible(true);
         }
     }
     public class AddAuthorListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             try {
-                publisher.addAuthor(addAuFrame.getAuthor());
+                publisher.addAuthor(addAuDialog.getAuthor());
             }
-            catch(EmptyDataException ex) {
-                JOptionPane.showMessageDialog(addAuFrame, ex.getMessage(), "UWAGA", JOptionPane.WARNING_MESSAGE);
-                addAuFrame.refresh();
+            catch(Exception ex) {
+                JOptionPane.showMessageDialog(addAuDialog, ex.getMessage(), "UWAGA", JOptionPane.WARNING_MESSAGE);
+                addAuDialog.refresh();
                 return;
             }
+
             authorsPanel.refresh(publisher.getAuthorsList()); 
-            addAuFrame.dispose();
+            addAuDialog.dispose();
         }
     }
     public class ShowDelAuFListener implements ActionListener {
