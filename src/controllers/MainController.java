@@ -2,6 +2,8 @@ package controllers;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import views.frames.*;
 import views.panels.*;
@@ -11,6 +13,7 @@ public class MainController {
     private MainFrame mainFrame;
     private MainPanel mainPanel;
     private AuthorsPanel authorsPanel;
+    private AddAuthorFrame addAuFrame;
     private Publisher publisher;
 
     public MainController(MainFrame mainFrame, MainPanel mainPanel, AuthorsPanel authorsPanel, Publisher publisher) {
@@ -24,8 +27,10 @@ public class MainController {
 
     public class AddAuthorListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            publisher.addAuthor(new Author());
-            authorsPanel.refresh(publisher.getAuthorsList());
+            addAuFrame = new AddAuthorFrame();
+            addAuFrame.setVisible(true);
+            //publisher.addAuthor(new Author());
+            //authorsPanel.refresh(publisher.getAuthorsList());
         }
     }
 
