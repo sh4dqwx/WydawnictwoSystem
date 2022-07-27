@@ -23,6 +23,10 @@ public class Publisher {
         return programDept.getAuthorsList();
     }
 
+    public void clear() {
+        authorsList.clear();
+    }
+
     public String toSave() {
         String toSend = "";
 
