@@ -15,7 +15,7 @@ public class MainController {
     private MainPanel mainPanel;
     private AuthorsPanel authorsPanel;
     private AddAuDialog addAuDialog;
-    private DelAuDialog delAuFrame;
+    private DelAuDialog delAuDialog;
     private Publisher publisher;
 
     public MainController(MainFrame mainFrame, MainPanel mainPanel, AuthorsPanel authorsPanel, Publisher publisher) {
@@ -24,17 +24,17 @@ public class MainController {
         this.authorsPanel = authorsPanel;
         this.publisher = publisher;
 
-        authorsPanel.addListeners(new ShowAddAuFListener(), new ShowDelAuFListener());
+        authorsPanel.addListeners(new ShowAddAuDListener(), new ShowDelAuDListener());
     }
 
-    public class ShowAddAuFListener implements ActionListener {
+    public class ShowAddAuDListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             addAuDialog = new AddAuDialog(mainFrame, "Dodaj autora");
-            addAuDialog.addListener(new AddAuthorListener());
+            addAuDialog.addListener(new AddAuListener());
             addAuDialog.setVisible(true);
         }
     }
-    public class AddAuthorListener implements ActionListener {
+    public class AddAuListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             try {
                 publisher.addAuthor(addAuDialog.getAuthor());
@@ -49,12 +49,23 @@ public class MainController {
             addAuDialog.dispose();
         }
     }
-    public class ShowDelAuFListener implements ActionListener {
+    public class ShowDelAuDListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            //delAuFrame = new DelAuFrame(mainFrame, "uwaga");
-            //delAuFrame.setVisible(true);
-            publisher.deleteAuthor(new Author());
-            authorsPanel.refresh(publisher.getAuthorsList());            
+            if(publisher.getAuthorsList().length == 0) {
+                JOptionPane.showMessageDialog(mainFrame, "Brak autorów do usunięcia", "UWAGA", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            delAuDialog = new DelAuDialog(mainFrame, "Usuń autora", publisher.getAuthorsList());
+            delAuDialog.addListener(new DelAuListener());
+            delAuDialog.setVisible(true);           
+        }
+    }
+    public class DelAuListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            publisher.deleteAuthor(delAuDialog.getAuthor());
+            authorsPanel.refresh(publisher.getAuthorsList()); 
+            delAuDialog.dispose();
         }
     }
 }

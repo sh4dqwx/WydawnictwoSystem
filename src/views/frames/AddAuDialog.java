@@ -12,8 +12,6 @@ import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-import java.awt.event.ActionEvent;
 import models.Author;
 import exceptions.EmptyDataException;
 import exceptions.WrongDataException;
@@ -26,6 +24,7 @@ public class AddAuDialog extends JDialog {
     public AddAuDialog(Frame owner, String title) {
         super(owner, title);
         setModal(true);
+        setResizable(false);
 
         JPanel titleP = new JPanel();
         titleP.add(new JLabel("Podaj dane autora:"));
@@ -61,8 +60,8 @@ public class AddAuDialog extends JDialog {
         pack();
     }
 
-    public void addListener(ActionListener addAuthorListener) {
-        submit.addActionListener(addAuthorListener);
+    public void addListener(ActionListener addAuListener) {
+        submit.addActionListener(addAuListener);
     }
 
     public Author getAuthor() throws EmptyDataException, WrongDataException {

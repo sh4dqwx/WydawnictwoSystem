@@ -15,7 +15,7 @@ public class ProgramDept {
         authorsList.add(author);
     }
     public void deleteAuthor(Author author) {
-
+        authorsList.remove(author);
     }
     public Author[] getAuthorsList() {
         Author[] toSend = new Author[authorsList.size()];
