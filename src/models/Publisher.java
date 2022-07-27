@@ -1,13 +1,16 @@
 package models;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 public class Publisher {
     private ArrayList<Author> authorsList;
     private ProgramDept programDept;
+    private PrintDept printDept;
+    private TradeDept tradeDept;
 
     public Publisher() {
         authorsList = new ArrayList<Author>();
         programDept = new ProgramDept(authorsList);
+        printDept = new PrintDept();
+        tradeDept = new TradeDept();
     }
 
     public void addAuthor(Author author) {
@@ -18,5 +21,18 @@ public class Publisher {
     }
     public Author[] getAuthorsList() {
         return programDept.getAuthorsList();
+    }
+
+    public String toSave() {
+        String toSend = "";
+
+        for(Author au : authorsList) {
+            toSend += "A," + au.toSave() + '\n';
+        }
+
+        if(toSend.length() > 0) {
+            toSend = toSend.substring(0, toSend.length() - 1);
+        }
+        return toSend;
     }
 }

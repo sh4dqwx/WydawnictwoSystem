@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
 
 public class MainPanel extends JPanel {
     private BufferedImage background;
@@ -41,6 +42,11 @@ public class MainPanel extends JPanel {
 
         add(title, BorderLayout.NORTH);
         add(buttons, BorderLayout.SOUTH);
+    }
+
+    public void addListeners(ActionListener saveListener, ActionListener loadListener) {
+        saveButton.addActionListener(saveListener);
+        loadButton.addActionListener(loadListener);
     }
 
     @Override

@@ -15,12 +15,12 @@ public class Author {
         this.age = age;
     }
 
-    public String getName() {
-        return name;
+    public String toSave() {
+        return name + ',' + surname + ',' + age;
     }
 
     @Override
     public String toString() {
-        return name + " " + surname + " " + age;
+        return name + ' ' + surname + ' ' + age;
     }
 }

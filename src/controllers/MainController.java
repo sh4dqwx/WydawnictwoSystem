@@ -1,14 +1,16 @@
 package controllers;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JFrame;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import views.frames.*;
 import views.panels.*;
 import models.*;
-import exceptions.EmptyDataException;
-import exceptions.WrongDataException;
 
 public class MainController {
     private MainFrame mainFrame;
@@ -24,9 +26,39 @@ public class MainController {
         this.authorsPanel = authorsPanel;
         this.publisher = publisher;
 
+        mainPanel.addListeners(new SaveListener(), new LoadListener());
         authorsPanel.addListeners(new ShowAddAuDListener(), new ShowDelAuDListener());
     }
 
+    public String getSavedPath() {
+        return System.getProperty("user.dir") + "\\saved";
+    }
+
+    public class SaveListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            JFileChooser saveFile = new JFileChooser(getSavedPath());
+            saveFile.setFileFilter(new FileNameExtensionFilter("Text Files", "txt"));
+            int response = saveFile.showSaveDialog(mainFrame);
+
+            if(response == JFileChooser.APPROVE_OPTION) {
+                try {
+                    PrintWriter printWriter = new PrintWriter(saveFile.getSelectedFile() + ".txt");
+                    printWriter.write(publisher.toSave());
+                    printWriter.close();
+                }
+                catch(FileNotFoundException ex) {
+                    JOptionPane.showMessageDialog(mainFrame, "Nie znaleziono pliku", "UWAGA", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            }
+            else System.out.println("dupa");
+        }
+    }
+    public class LoadListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            System.out.println(getSavedPath());
+        }
+    }
     public class ShowAddAuDListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             addAuDialog = new AddAuDialog(mainFrame, "Dodaj autora");
