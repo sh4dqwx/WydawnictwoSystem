@@ -35,6 +35,27 @@ public class MainController {
         return System.getProperty("user.dir") + "\\saved";
     }
 
+    public void save(File selectedFile) throws FileNotFoundException {
+        PrintWriter printWriter = new PrintWriter(selectedFile);
+        printWriter.write(publisher.toSave());
+        printWriter.close();
+    }
+
+    public void load(File selectedFile) throws FileNotFoundException {
+        publisher.clear();
+        Scanner scan = new Scanner(selectedFile);
+        while(scan.hasNextLine()) {
+            String[] dane = scan.nextLine().split(",");
+            switch(dane[0]) {
+                case "A" -> {
+                    publisher.addAuthor(new Author(dane[1], dane[2], Integer.parseInt(dane[3])));
+                }
+            }
+        }
+        scan.close();
+        authorsPanel.refresh(publisher.getAuthorsList());
+    }
+
     public class SaveListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             JFileChooser saveFile = new JFileChooser(getSavedPath());
@@ -43,39 +64,24 @@ public class MainController {
 
             if(response == JFileChooser.APPROVE_OPTION) {
                 try {
-                    PrintWriter printWriter = new PrintWriter(saveFile.getSelectedFile());
-                    printWriter.write(publisher.toSave());
-                    printWriter.close();
+                    save(saveFile.getSelectedFile());
                 }
                 catch(FileNotFoundException ex) {
                     JOptionPane.showMessageDialog(mainFrame, "Nie znaleziono pliku", "UWAGA", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
             }
-            else System.out.println("dupa");
         }
     }
     public class LoadListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            publisher.clear();
-
             JFileChooser loadFile = new JFileChooser(getSavedPath());
             loadFile.setFileFilter(new FileNameExtensionFilter("Text Files", "txt"));
             int response = loadFile.showOpenDialog(mainFrame);
 
             if(response == JFileChooser.APPROVE_OPTION) {
                 try {
-                    Scanner scan = new Scanner(loadFile.getSelectedFile());
-                    while(scan.hasNextLine()) {
-                        String[] dane = scan.nextLine().split(",");
-                        switch(dane[0]) {
-                            case "A" -> {
-                                publisher.addAuthor(new Author(dane[1], dane[2], Integer.parseInt(dane[3])));
-                            }
-                        }
-                    }
-                    scan.close();
-                    authorsPanel.refresh(publisher.getAuthorsList());
+                    load(loadFile.getSelectedFile());
                 }
                 catch(FileNotFoundException ex) {
                     JOptionPane.showMessageDialog(mainFrame, "Nie znaleziono pliku", "UWAGA", JOptionPane.WARNING_MESSAGE);

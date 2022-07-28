@@ -2,8 +2,6 @@ package models;
 
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
 public class ProgramDept {
     private ArrayList<Author> authorsList;
 

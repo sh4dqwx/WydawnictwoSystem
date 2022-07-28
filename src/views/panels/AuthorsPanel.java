@@ -45,9 +45,9 @@ public class AuthorsPanel extends JPanel {
         list.setListData(authorsList);
     }
 
-    public void addListeners(ActionListener addAuthorListener, ActionListener deleteAuthorListener) {
-        addAuthorButton.addActionListener(addAuthorListener);
-        deleteAuthorButton.addActionListener(deleteAuthorListener);
+    public void addListeners(ActionListener showAddAuDListener, ActionListener showDelAuDListener) {
+        addAuthorButton.addActionListener(showAddAuDListener);
+        deleteAuthorButton.addActionListener(showDelAuDListener);
     }
 
     @Override
