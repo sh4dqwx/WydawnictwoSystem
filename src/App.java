@@ -1,4 +1,5 @@
-import views.frames.*;
+import views.MainFrame;
+import views.dialogs.*;
 import views.panels.*;
 import models.*;
 import controllers.*;

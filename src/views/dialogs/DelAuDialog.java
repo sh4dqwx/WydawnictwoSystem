@@ -1,4 +1,4 @@
-package views.frames;
+package views.dialogs;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;

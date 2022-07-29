@@ -1,4 +1,4 @@
-package views.frames;
+package views;
 
 import javax.swing.JFrame;
 import views.panels.*;

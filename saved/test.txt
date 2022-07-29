@@ -1,0 +1,6 @@
+A,Bartosz,Karolczak,19
+A,Aleksandra,Walendziuk,20
+A,Remigiusz,Mróz,35
+A,Olga,Tokarczuk,60
+A,Andrzej,Sapkowski,74
+A,Rafał,Kosik,50

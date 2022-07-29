@@ -9,7 +9,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import views.frames.*;
+
+import views.MainFrame;
+import views.dialogs.*;
 import views.panels.*;
 import models.*;
 

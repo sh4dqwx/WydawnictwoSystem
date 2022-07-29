@@ -1,4 +1,4 @@
-package views.frames;
+package views.dialogs;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -66,8 +66,8 @@ public class AddAuDialog extends JDialog {
 
     public Author getAuthor() throws EmptyDataException, WrongDataException {
         if(name.getText().length() == 0 || surname.getText().length() == 0) throw new EmptyDataException("Podaj dane autora");
-        if(Pattern.compile("^[a-zA-Z]+$").matcher(name.getText()).find() == false) throw new WrongDataException("Niepoprawne dane");
-        if(Pattern.compile("^[a-zA-Z]+$").matcher(surname.getText()).find() == false) throw new WrongDataException("Niepoprawne dane");
+        if(Pattern.compile("^[\\s\\p{L}]+$").matcher(name.getText()).find() == false) throw new WrongDataException("Niepoprawne dane");
+        if(Pattern.compile("^[\\s\\p{L}]+$").matcher(surname.getText()).find() == false) throw new WrongDataException("Niepoprawne dane");
 
         return new Author(name.getText(), surname.getText(), (int)age.getValue());
     }
@@ -75,6 +75,5 @@ public class AddAuDialog extends JDialog {
     public void refresh() {
         name.setText("");
         surname.setText("");
-        age.setValue(18);
     }
 }
