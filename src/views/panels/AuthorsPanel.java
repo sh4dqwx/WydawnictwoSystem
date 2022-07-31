@@ -14,15 +14,15 @@ import models.Author;
 
 public class AuthorsPanel extends JPanel {
     private JList<Author> list;
-    private BufferedImage background;
-    private JButton addAuthorButton, deleteAuthorButton;
+    private BufferedImage bg;
+    private JButton addAuB, delAuB;
 
     public AuthorsPanel() {
         super();
         setLayout(new BorderLayout());
         
         try {
-            background = ImageIO.read(new File("monke-writer.jpg"));
+            bg = ImageIO.read(new File("monke-writer.jpg"));
         }
         catch(IOException e) {
             e.printStackTrace();
@@ -32,10 +32,10 @@ public class AuthorsPanel extends JPanel {
 
         JPanel buttons = new JPanel(new FlowLayout());
         buttons.setOpaque(false);
-        addAuthorButton = new JButton("Dodaj autora");
-        buttons.add(addAuthorButton);
-        deleteAuthorButton = new JButton("Usuń autora");
-        buttons.add(deleteAuthorButton);
+        addAuB = new JButton("Dodaj autora");
+        buttons.add(addAuB);
+        delAuB = new JButton("Usuń autora");
+        buttons.add(delAuB);
 
         add(list, BorderLayout.NORTH);
         add(buttons, BorderLayout.SOUTH);
@@ -46,13 +46,13 @@ public class AuthorsPanel extends JPanel {
     }
 
     public void addListeners(ActionListener showAddAuDListener, ActionListener showDelAuDListener) {
-        addAuthorButton.addActionListener(showAddAuDListener);
-        deleteAuthorButton.addActionListener(showDelAuDListener);
+        addAuB.addActionListener(showAddAuDListener);
+        delAuB.addActionListener(showDelAuDListener);
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(background, 0, 0, this);            
+        g.drawImage(bg, 0, 0, this);            
     }
 }

@@ -15,11 +15,8 @@ import models.Publisher;
 import models.Author;
 
 public class SaveLoadController extends Controller {
-    private MainPanel mainPanel;
-
     public SaveLoadController(MainFrame mainFrame, Publisher publisher, MainPanel mainPanel) {
         super(mainFrame, publisher);
-        this.mainPanel = mainPanel;
         mainPanel.addListeners(new SaveListener(), new LoadListener());
     }
 
