@@ -13,6 +13,9 @@ public class App {
         Publisher publisher = new Publisher();
         new SaveLoadController(mainFrame, publisher, mainPanel);
         new AuthorsController(mainFrame, publisher, authorsPanel);
+        new ContractsController(mainFrame, publisher, contractsPanel);
+        new WorksController(mainFrame, publisher, worksPanel);
+        new ShopController(mainFrame, publisher, shopPanel);
         mainFrame.setVisible(true);
     }
 }
