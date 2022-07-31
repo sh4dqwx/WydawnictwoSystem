@@ -1,5 +1,13 @@
 package views.panels;
 
-public class ShopPanel {
-    
+import javax.swing.JPanel;
+
+public class ShopPanel extends JPanel {
+    public ShopPanel() {
+        super();
+    }
+
+    public void refresh(String[] shopList) {
+        
+    }
 }
