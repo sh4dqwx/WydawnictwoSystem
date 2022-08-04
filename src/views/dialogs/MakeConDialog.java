@@ -19,14 +19,20 @@ import models.contracts.*;
 
 public class MakeConDialog extends JDialog {
     private boolean isNewAu, isWorkCon;
+    private JPanel conDataP, conP, workConP, newAuP;
     private JComboBox<Author> author;
-    private Author newAu;
+    private Author newAu, selAu;
     private JComboBox<String> type;
-    private JTextField name, surname;
+    private JTextField name, surname, title;
     private JSpinner period, age;
     private JButton submit;
 
-    private void addConPanel(JPanel dataP, Author[] authorsList) {
+    private void reset() {
+        add(conDataP, BorderLayout.CENTER);
+        pack();
+    }
+
+    private JPanel createConPanel(Author[] authorsList) {
         JPanel titleP = new JPanel();
         titleP.add(new JLabel("Podaj dane umowy"));
 
@@ -35,6 +41,8 @@ public class MakeConDialog extends JDialog {
         author = new JComboBox<Author>(authorsList);
         newAu = new Author("Nowy", "Autor", 0);
         author.addItem(newAu);
+        selAu = (Author)author.getSelectedItem();
+        author.addActionListener(new NewAuListener());
         authorP.add(author);
 
         JPanel typeP = new JPanel();
@@ -48,17 +56,47 @@ public class MakeConDialog extends JDialog {
         period = new JSpinner(new SpinnerNumberModel(1, 1, 99, 1));
         periodP.add(period);
 
-        JPanel conDataP = new JPanel();
-        conDataP.add(authorP);
-        conDataP.add(typeP);
-        conDataP.add(periodP);
+        JPanel dataP = new JPanel();
+        dataP.add(authorP);
+        dataP.add(typeP);
+        dataP.add(periodP);
 
-        JPanel conP = new JPanel();
-        conP.setLayout(new BoxLayout(conP, BoxLayout.PAGE_AXIS));
-        conP.add(titleP);
-        conP.add(conDataP);
+        JPanel conP = new JPanel(new BorderLayout());
+        conP.add(titleP, BorderLayout.NORTH);
+        conP.add(dataP, BorderLayout.CENTER);
 
-        dataP.add(conP);
+        return conP;
+    }
+
+    private JPanel createNewAuConPanel() {
+        JPanel titleP = new JPanel();
+        titleP.add(new JLabel("Podaj dane autora:"));
+
+        JPanel nameP = new JPanel();
+        nameP.add(new JLabel("Imię: "));
+        name = new JTextField(10);
+        nameP.add(name);
+
+        JPanel surnameP = new JPanel();
+        surnameP.add(new JLabel("Nazwisko: "));
+        surname = new JTextField(10);
+        surnameP.add(surname);
+
+        JPanel ageP = new JPanel();
+        ageP.add(new JLabel("Wiek: "));
+        age = new JSpinner(new SpinnerNumberModel(18, 18, 99, 1));
+        ageP.add(age);
+
+        JPanel dataP = new JPanel();
+        dataP.add(nameP);
+        dataP.add(surnameP);
+        dataP.add(ageP);
+
+        JPanel newAuP = new JPanel(new BorderLayout());
+        newAuP.add(titleP, BorderLayout.NORTH);
+        newAuP.add(dataP, BorderLayout.CENTER);
+
+        return newAuP;
     }
 
     public MakeConDialog(Frame owner, String title, Author[] authorsList) {
@@ -68,24 +106,29 @@ public class MakeConDialog extends JDialog {
         isNewAu = false;
         isWorkCon = false;
 
-        JPanel dataP = new JPanel();
-        dataP.setLayout(new BoxLayout(dataP, BoxLayout.PAGE_AXIS));
-        addConPanel(dataP, authorsList);
-        author.addActionListener(new NewAuListener());
+        conDataP = new JPanel();
+        conDataP.setLayout(new BoxLayout(conDataP, BoxLayout.PAGE_AXIS));
+
+        conP = createConPanel(authorsList);
+        conDataP.add(conP);
+        if(selAu == newAu) {
+            newAuP = createNewAuConPanel();
+            conDataP.add(newAuP);
+            isNewAu = true;
+        }
 
         JPanel buttonsP = new JPanel();
         submit = new JButton("Zawrzyj umowę");
         buttonsP.add(submit);
 
-        add(dataP, BorderLayout.CENTER);
         add(buttonsP, BorderLayout.SOUTH);
-        pack();
+        reset();
     }
 
     public Contract getContract() {
-        String selType = (String)type.getSelectedItem();
-        if(selType.equals("Umowa o pracę")) {
-            return new EmpContract((Author)author.getSelectedItem(), LocalDate.now(), LocalDate.now().plusYears((int)period.getValue()));
+        if(isNewAu) selAu = new Author(name.getText(), surname.getText(), (int)age.getValue());
+        if(!isWorkCon) {
+            return new EmpContract(selAu, LocalDate.now(), LocalDate.now().plusYears((int)period.getValue()));
         } else {
             return new Contract();
         }
@@ -97,10 +140,17 @@ public class MakeConDialog extends JDialog {
 
     public class NewAuListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            Author selAu = (Author)author.getSelectedItem();
-            if(selAu.equals(newAu) && isNewAu == false) {
-                System.out.println("dupa");
+            selAu = (Author)author.getSelectedItem();
+            if(!isNewAu && selAu.equals(newAu)) {
+                if(newAuP == null) newAuP = createNewAuConPanel();
+                conDataP.add(newAuP);
+                reset();
                 isNewAu = true;
+            }
+            else if(isNewAu && !selAu.equals(newAu)) {
+                conDataP.remove(newAuP);
+                reset();
+                isNewAu = false;
             }
         }
     }

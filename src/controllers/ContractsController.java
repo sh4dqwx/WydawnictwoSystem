@@ -3,19 +3,25 @@ package controllers;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import views.MainFrame;
+import views.panels.AuthorsPanel;
 import views.panels.ContractsPanel;
+import views.panels.WorksPanel;
 import views.dialogs.MakeConDialog;
 import views.dialogs.TermConDialog;
 import models.Publisher;
 
 public class ContractsController extends Controller {
+    private AuthorsPanel authorsPanel;
     private ContractsPanel contractsPanel;
+    private WorksPanel worksPanel;
     private MakeConDialog makeConDialog;
     private TermConDialog termConDialog;
 
-    public ContractsController(MainFrame mainFrame, Publisher publisher, ContractsPanel contractsPanel) {
+    public ContractsController(MainFrame mainFrame, Publisher publisher, AuthorsPanel authorsPanel, ContractsPanel contractsPanel, WorksPanel worksPanel) {
         super(mainFrame, publisher);
+        this.authorsPanel = authorsPanel;
         this.contractsPanel = contractsPanel;
+        this.worksPanel = worksPanel;
         contractsPanel.addListeners(new ShowMakeConDListener(), new ShowTermConDListener());
     }
 
@@ -29,7 +35,9 @@ public class ContractsController extends Controller {
     public class MakeConListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             publisher.addContract(makeConDialog.getContract());
+            authorsPanel.refresh(publisher.getAuthorsList());
             contractsPanel.refresh(publisher.getContractsList());
+            worksPanel.refresh(publisher.getWorksList());
             makeConDialog.dispose();
         }
     }

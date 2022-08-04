@@ -15,6 +15,10 @@ public class MainFrame extends JFrame {
 
     public MainFrame(MainPanel mainPanel, AuthorsPanel authorsPanel, ContractsPanel contractsPanel, WorksPanel worksPanel, ShopPanel shopPanel) {
         super();
+        this.authorsPanel = authorsPanel;
+        this.contractsPanel = contractsPanel;
+        this.worksPanel = worksPanel;
+        this.shopPanel = shopPanel;
         setTitle("Wydawnictwo ePress");
         setSize(1200, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
