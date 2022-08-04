@@ -21,14 +21,16 @@ public class ContractsController extends Controller {
 
     public class ShowMakeConDListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            makeConDialog = new MakeConDialog(mainFrame, "Zawrzyj umowę");
+            makeConDialog = new MakeConDialog(mainFrame, "Zawrzyj umowę", publisher.getAuthorsList());
             makeConDialog.addListener(new MakeConListener());
             makeConDialog.setVisible(true);
         }
     }
     public class MakeConListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-
+            publisher.addContract(makeConDialog.getContract());
+            contractsPanel.refresh(publisher.getContractsList());
+            makeConDialog.dispose();
         }
     }
     public class ShowTermConDListener implements ActionListener {

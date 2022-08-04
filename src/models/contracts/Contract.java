@@ -1,15 +1,18 @@
 package models.contracts;
 
-import java.time.LocalDate;
 import models.Author;
 
 public class Contract {
     protected Author author;
-    protected LocalDate startDate, endDate;
 
-    public Contract(Author author, LocalDate startDate, LocalDate endDate) {
+    public Contract() {
+        author = null;
+    }
+    public Contract(Author author) {
         this.author = author;
-        this.startDate = startDate;
-        this.endDate = endDate;
+    }
+
+    public String toSave() {
+        return "";
     }
 }

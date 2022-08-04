@@ -8,7 +8,6 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JButton;
 import java.awt.Frame;
-import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.util.regex.Pattern;
@@ -31,17 +30,17 @@ public class AddAuDialog extends JDialog {
 
         JPanel dataP = new JPanel();
 
-        JPanel nameP = new JPanel(new FlowLayout());
+        JPanel nameP = new JPanel();
         nameP.add(new JLabel("Imię: "));
         name = new JTextField(10);
         nameP.add(name);
 
-        JPanel surnameP = new JPanel(new FlowLayout());
+        JPanel surnameP = new JPanel();
         surnameP.add(new JLabel("Nazwisko: "));
         surname = new JTextField(10);
         surnameP.add(surname);
 
-        JPanel ageP = new JPanel(new FlowLayout());
+        JPanel ageP = new JPanel();
         ageP.add(new JLabel("Wiek: "));
         age = new JSpinner(new SpinnerNumberModel(18, 18, 99, 1));
         ageP.add(age);
